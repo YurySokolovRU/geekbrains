@@ -5,19 +5,8 @@
     <title>Task6</title>
 </head>
 <body>
+<script src="mathfunc.js"></script>
 <script>
-    function plus(a, b) {
-        return a+b;
-    }
-    function minus(a, b) {
-        return a-b;
-    }
-    function multiply(a, b) {
-        return a*b;
-    }
-    function divide(a, b) {
-        return a/b;
-    }
     function mathOperation(a, b, operation) {
         switch (operation) {
             case 'plus': return plus(a, b);
@@ -26,7 +15,6 @@
             case 'multiply': return multiply(a, b);
         }
     }
-
     alert(mathOperation(5, 6, 'minus'));
 </script>
 </body>
