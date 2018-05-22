@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task2</title>
+</head>
+<body>
+<script>
+    var counter = 0;
+    do {
+        document.write(counter + " - ");
+        if (counter == 0) {
+            document.write(" это ноль");
+        } else {
+            document.write(counter%2 == 0 ? "чётное число" : "нечётное число");
+        }
+        document.writeln("<br>");
+        counter++;
+    } while (counter <= 10)
+</script>
+</body>
+</html>
