@@ -57,5 +57,6 @@ function startTheGame() {
             break;
         }
     }
+    document.getElementById('playerWallet').innerHTML = 'Ваш кошелек: ' + playerWallet;
     return confirm('Игра окончена.\nУ Вас ' + playerWallet + ' очков.\nХотите сыграть еще раз?');
 }
