@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Who wants to be a Millionaire</title>
+    <script src="js/MillionaireGame.js"></script>
+</head>
+<body>
+<div id="playerWallet"></div>
+<script>
+    var doPlay = true;
+    while (doPlay) {
+        doPlay = startTheGame();
+        document.getElementById('playerWallet').innerHTML = 'Ваш кошелек: ' + playerWallet;
+    }
+</script>
+</body>
+</html>

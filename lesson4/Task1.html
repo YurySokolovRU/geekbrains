@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task1</title>
+    <script>
+        function transform(number) {
+            var returnObject;
+            if (number <= 999) {
+                returnObject = {};
+                returnObject.count100 = Math.floor(number/100);
+                var remain = number%100;
+                returnObject.count10 = Math.floor(remain/10);
+                remain = remain % 10;
+                returnObject.count1 = remain;
+            }
+            return returnObject;
+        }
+
+        function printTransformedObject() {
+            var number = document.getElementById('num').value;
+            var numberObject = transform(number);
+            var resultDiv = document.getElementById('result');
+            if (numberObject === undefined) {
+                console.log('Число превышает 999');
+                resultDiv.style.color = 'red';
+                resultDiv.innerHTML = 'Число превышвает 999';
+            } else {
+                resultDiv.style.color = 'black';
+                document.getElementById('result').innerHTML = 'Сотни: ' + numberObject.count100 + '<br>' + 'Десятки: ' + numberObject.count10 + '<br>' + 'Единицы: ' + numberObject.count1
+            }
+        }
+    </script>
+</head>
+<body>
+Введите число от 0 до 999: <input type="number" id="num" min="0"/><button onclick="printTransformedObject();">Объект!</button>
+<div id="result"></div>
+</body>
+</html>
