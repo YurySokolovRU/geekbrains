@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task1-3</title>
+    <script>
+        function drawChessTable(containerId) {
+            var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+            var numbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+            var table = document.createElement("table");
+            table.id = 'chess_table';
+            table.border = 1;
+            for (var i = 9; i >= 0; i--) {
+                var tr = document.createElement("tr");
+                table.appendChild(tr);
+                for (var j = 0; j <= 9; j++) {
+                    var td = document.createElement("td");
+                    td.width = 50;
+                    td.height = 50;
+                    td.align = 'center';
+                    td.valign = 'center';
+                    switch (i) {
+                        case 0:
+                            td.style.border = 0;
+                            switch (j) {
+                                case 0:
+                                    break;
+                                case 9:
+                                    break;
+                                default:
+                                    td.innerText = letters[j - 1];
+                                    break;
+                            }
+                            break;
+                        case 9:
+                            td.style.border = 0;
+                            switch (j) {
+                                case 0:
+                                    break;
+                                case 9:
+                                    break;
+                                default:
+                                    td.innerText = letters[j - 1];
+                                    td.style.transform = 'rotate(-180deg)';
+                                    break;
+                            }
+                            break;
+                        default:
+                            switch (j) {
+                                case 0:
+                                    td.innerText = numbers[i - 1];
+                                    td.style.border = 0;
+                                    break;
+                                case 9:
+                                    td.innerText = numbers[i - 1];
+                                    td.style.border = 0;
+                                    td.style.transform = 'rotate(-180deg)';
+                                    break;
+                                default:
+                                    if ((i % 2 === 0 && j % 2 === 0) || (i % 2 === 1 && j % 2 === 1)) {
+                                        td.bgColor = 'grey';
+                                    } else {
+                                        td.bgColor = 'antiquewhite';
+                                    }
+                            }
+                            break;
+                    }
+                    tr.appendChild(td);
+                }
+            }
+
+            var container = document.getElementById(containerId);
+            var children = container.children;
+            for (var n = 0; n < children.length; n++) {
+                container.removeChild(children[0]);
+            }
+            container.appendChild(table);
+        }
+
+        function fillWithSymbols(tableId) {
+            var symbols = ['Л', 'К', 'С', 'Ф', 'Кр', 'С', 'К', 'Л'];
+            var table = document.getElementById(tableId);
+
+            var trs = table.childNodes;
+            var blackTds1 = trs[1].childNodes;
+            for (var i = 1; i < blackTds1.length - 1; i++) {
+                var td = blackTds1[i];
+                td.style.transform = 'rotate(-180deg)';
+                td.innerText = symbols[i-1];
+                td.style.fontFamily = 'Arial';
+                td.style.fontWeight = 'bold';
+                td.style.color = 'black';
+            }
+            var blackTds2 = trs[2].childNodes;
+            for (var i = 1; i < blackTds2.length - 1; i++) {
+                var td = blackTds2[i];
+                td.style.transform = 'rotate(-180deg)';
+                td.innerText = 'п';
+                td.style.fontFamily = 'Arial';
+                td.style.fontWeight = 'bold';
+                td.style.color = 'black';
+            }
+
+            var whiteTds1 = trs[8].childNodes;
+            for (var i = 1; i < whiteTds1.length - 1; i++) {
+                var td = whiteTds1[i];
+                td.innerText = symbols[i-1];
+                td.style.fontFamily = 'Arial';
+                td.style.fontWeight = 'bold';
+                td.style.color = 'white';
+                td.style.borderColor = 'black';
+            }
+            var whiteTds2 = trs[7].childNodes;
+            for (var i = 1; i < whiteTds2.length - 1; i++) {
+                var td = whiteTds2[i];
+                td.innerText = 'п';
+                td.style.fontFamily = 'Arial';
+                td.style.fontWeight = 'bold';
+                td.style.color = 'white';
+                td.style.borderColor = 'black';
+            }
+        }
+
+        function fillWithImages(tableId) {
+            var wImages = ['wR', 'wK', 'wB', 'wQ', 'wK', 'wB', 'wK', 'wR'];
+            var bImages = ['bR', 'bK', 'bB', 'bQ', 'bK', 'bB', 'bK', 'bR'];
+            var table = document.getElementById(tableId);
+
+            var trs = table.childNodes;
+            var blackTds1 = trs[1].childNodes;
+            for (var i = 1; i < blackTds1.length - 1; i++) {
+                var td = blackTds1[i];
+                td.innerText = '';
+                var image = document.createElement("img");
+                image.src = "images/" + bImages[i-1] + ".png";
+                td.appendChild(image);
+                td.style.transform = 'rotate(-180deg)';
+            }
+            var blackTds2 = trs[2].childNodes;
+            for (var i = 1; i < blackTds2.length - 1; i++) {
+                var td = blackTds2[i];
+                td.innerText = '';
+                var image = document.createElement("img");
+                image.src = "images/bP.png";
+                td.appendChild(image);
+                td.style.transform = 'rotate(-180deg)';
+            }
+
+            var whiteTds1 = trs[8].childNodes;
+            for (var i = 1; i < whiteTds1.length - 1; i++) {
+                var td = whiteTds1[i];
+                td.innerText = '';
+                var image = document.createElement("img");
+                image.src = "images/" + wImages[i-1] + ".png";
+                td.appendChild(image);
+            }
+            var whiteTds2 = trs[7].childNodes;
+            for (var i = 1; i < whiteTds2.length - 1; i++) {
+                var td = whiteTds2[i];
+                td.innerText = '';
+                var image = document.createElement("img");
+                image.src = "images/wP.png";
+                td.appendChild(image);
+            }
+        }
+    </script>
+</head>
+<body>
+
+<button onclick="drawChessTable('container')">1. Нарисовать доску</button><br>
+<button onclick="fillWithSymbols('chess_table')">2. Добавить символы</button><br>
+<button onclick="fillWithImages('chess_table')">3. Заменить картинками</button>
+
+<div id="container" style="padding: 100px;"></div>
+</body>
+</html>
