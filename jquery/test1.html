@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src = 'jquery.js'></script>
+</head>
+<body>
+
+<div id="block">
+    <p>перв</p>
+    <p id="x">втор</p>
+    <p class="my">трет</p>
+
+    <select></select>
+    <button onclick="f();">Добавить</button>
+</div>
+
+<button onclick="$('#block').slideDown(2000);">Показать</button>
+<button onclick="$('#block').slideUp(3000);">Скрыть</button>
+
+<script>
+    var x = 1;
+
+    function f() {
+        var option = "<option>" + x + "</option>";
+        $("select").append(option);
+        x++;
+    }
+
+    $("p").css("color", "red");
+    $("#x").css("color", "green");
+    $(".my").css("color", "yellow");
+</script>
+</body>
+</html>
