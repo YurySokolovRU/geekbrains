@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var pictures = ['klimt', 'vangog', 'dega'];
+
+        function init() {
+            var images = document.getElementsByTagName("img");
+            for (var i = 0; i < images.length; i++) {
+                images[i].onclick = changeBigPicture;
+            }
+        }
+
+        function changeBigPicture(eventObj) {
+            doChangeBigPicture(eventObj.target);
+        }
+
+        var lastSmall;
+
+        function doChangeBigPicture(eventTarget) {
+            lastSmall = eventTarget;
+            var appDiv = document.getElementById('big_picture');
+            appDiv.innerHTML = '';
+            var src = eventTarget.src.replace("small", "big");
+            var imageDomElement = document.createElement("img");
+            imageDomElement.src = src;
+            imageDomElement.onerror = function () {
+                imageDomElement.src = 'big/no_image.jpg';
+            };
+            appDiv.appendChild(imageDomElement);
+
+            var navDiv = document.getElementById('navigation');
+            navDiv.innerHTML = '';
+
+            var backNav = document.createElement("img");
+            backNav.src = "img/back.png";
+            backNav.onclick = goBack;
+            navDiv.appendChild(backNav);
+
+            var forwardNav = document.createElement("img");
+            forwardNav.src = "img/forward.png";
+            forwardNav.onclick = goForward;
+            navDiv.appendChild(forwardNav);
+        }
+
+        function goBack() {
+            var prev = -1;
+            for (var i = 0; i < pictures.length; i++) {
+                if (lastSmall.id === pictures[i]) {
+                    prev = i-1;
+                }
+            }
+            if (prev >= 0) {
+                doChangeBigPicture(document.getElementById(pictures[prev]));
+            }
+        }
+
+        function goForward() {
+            var next = -1;
+            for (var i = 0; i < pictures.length; i++) {
+                if (lastSmall.id === pictures[i]) {
+                    next = i+1;
+                }
+            }
+            if (next >= 0 && next < pictures.length) {
+                doChangeBigPicture(document.getElementById(pictures[next]));
+            }
+        }
+        window.onload = init;
+    </script>
+</head>
+<body>
+<div id="big_picture" align="center"></div>
+<div id="navigation" align="center"></div>
+<div id="gallery" align="center">
+    <script>
+        for (var i = 0; i < pictures.length; i++) {
+            document.write("<img id='" + pictures[i] + "' src='small/" + pictures[i] + ".jpg'>\n");
+        }
+    </script>
+</div>
+</body>
+</html>
