@@ -20,6 +20,10 @@
         var lastSmall;
 
         function doChangeBigPicture(eventTarget) {
+            if (lastSmall !== undefined) {
+                lastSmall.border = '0';
+            }
+            eventTarget.border = '1';
             lastSmall = eventTarget;
             var appDiv = document.getElementById('big_picture');
             appDiv.innerHTML = '';
@@ -29,6 +33,7 @@
             imageDomElement.onerror = function () {
                 imageDomElement.src = 'big/no_image.jpg';
             };
+            imageDomElement.onclick = goForward;
             appDiv.appendChild(imageDomElement);
 
             var navDiv = document.getElementById('navigation');
@@ -52,9 +57,10 @@
                     prev = i-1;
                 }
             }
-            if (prev >= 0) {
-                doChangeBigPicture(document.getElementById(pictures[prev]));
+            if (prev < 0) {
+                prev = pictures.length - 1;
             }
+            doChangeBigPicture(document.getElementById(pictures[prev]));
         }
 
         function goForward() {
@@ -64,10 +70,16 @@
                     next = i+1;
                 }
             }
-            if (next >= 0 && next < pictures.length) {
+
+            if (next === pictures.length) {
+                next = 0;
+            }
+
+            if (next > -1) {
                 doChangeBigPicture(document.getElementById(pictures[next]));
             }
         }
+
         window.onload = init;
     </script>
 </head>
