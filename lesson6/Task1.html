@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function init() {
+            var images = document.getElementsByTagName("img");
+            for (var i = 0; i < images.length; i++) {
+                images[i].onclick = changeBigPicture;
+            }
+        }
+
+        function changeBigPicture(eventObj) {
+            var appDiv = document.getElementById('big_picture');
+            appDiv.innerHTML = '';
+            var eventElement = eventObj.target;
+            var src = eventElement.src.replace("small", "big");
+            var imageDomElement = document.createElement("img");
+            imageDomElement.src = src;
+            imageDomElement.onerror = function() {imageDomElement.src = 'big/no_image.jpg';};
+            appDiv.appendChild(imageDomElement);
+        }
+        window.onload = init;
+    </script>
+</head>
+<body>
+<div id="big_picture" align="center"></div>
+<div id="gallery">
+    <img id="klimt" src="small/klimt.jpg">
+    <img id="vangog" src="small/vangog.jpg">
+    <img id="dega" src="small/dega.jpg">
+</div>
+</body>
+</html>
