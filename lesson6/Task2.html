@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task2</title>
+    <script>
+        var catalog = [['Лимон', 15], ['Яблоко', 18], ['Арбуз', 35], ['Персик', 24], ['Нектарин', 22], ['Дыня', 31]];
+        var basket = [];
+
+        function initCatalog() {
+            var catalogEl = document.getElementById('catalog');
+            for (var i = 0; i < catalog.length; i++) {
+                var name = catalog[i][0];
+                var price = catalog[i][1];
+                var goodSpan = document.createElement('div');
+                goodSpan.style.border = 1;
+                var goodDescription = document.createElement("div");
+                goodDescription.innerHTML = 'Товар: ' + name + '<br>' + 'Стоимость: ' + price;
+                goodSpan.appendChild(goodDescription);
+                var addButton = document.createElement('button');
+                addButton.id = 'add_' + i;
+                addButton.innerText = 'В корзину';
+                addButton.onclick = addToBasket;
+
+                goodSpan.appendChild(addButton);
+                catalogEl.appendChild(goodSpan);
+            }
+        }
+
+        function addToBasket(eventObj) {
+            var addButton = eventObj.target;
+            var itemOrderNum = addButton.id.substring('add_'.length);
+            var name = catalog[itemOrderNum][0];
+            var found = false;
+            for (var i = 0; i < basket.length; i++) {
+                if (basket[i][0] === name) {
+                    basket[i][1]++;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                basket.push([name, 1]);
+            }
+            showBasket();
+        }
+
+        function showBasket() {
+            var basketHtml = '';
+            var total = 0;
+            for (var i = 0; i < basket.length; i++) {
+                if (i > 0) {
+                    basketHtml += '<br>';
+                }
+                basketHtml += 'Товар: ' + basket[i][0] + '.  Кол-во: ' + basket[i][1];
+                total += basket[i][1] * getGoodPrice(basket[i][0]);
+            }
+            basketHtml += '<br>Итого: ' + total;
+            document.getElementById('basket').innerHTML = basketHtml;
+        }
+
+        function getGoodPrice(goodName) {
+            for (var i = 0; i < catalog.length; i++) {
+                if (catalog[i][0] === goodName) {
+                    return catalog[i][1];
+                }
+            }
+            return 0;
+        }
+        window.onload = initCatalog;
+    </script>
+</head>
+<body>
+<p>Ваши покупки:</p>
+<div id="basket">
+</div>
+<br><br>
+<div id="catalog">
+</div>
+</body>
+</html>
