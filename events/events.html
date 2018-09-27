@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+    <script>
+        function f() {
+            log(this);
+        }
+
+        function log(obj) {
+            console.log(obj);
+        }
+    </script>
+</head>
+<body>
+
+<button onclick="f()">GO</button>
+<button id="b2">GO2</button>
+<button id="b3">GO3</button>
+<button id="b4">GO4</button>
+<button id="b5">GO5</button>
+
+<script>
+    var b2 = document.getElementById('b2');
+    var b3 = document.getElementById('b3');
+    b2.onclick = f;
+    b3.onclick = function() {
+        log('b3');
+    };
+
+    var f1 = function(event) {
+        log(event.target.id);
+    };
+
+    var b4 = document.getElementById('b4');
+    b4.addEventListener('click', f1);
+</script>
+
+</body>
+</html>

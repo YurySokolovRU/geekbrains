@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function callProcess() {
+            console.log('start');
+            sleep(3000);
+            console.log('finish');
+        }
+
+        function sleep(ms) {
+            ms += Date.now();
+            var counter = 0;
+            while (Date.now() < ms){
+                console.log(counter++);
+                sleep1(300)
+            }
+        }
+
+        function sleep1(ms) {
+            ms += Date.now();
+            var counter = 0;
+            while (Date.now() < ms){
+            }
+        }
+    </script>
+</head>
+<body>
+<script>
+    setTimeout(function check() {
+        if (typeof scriptObject === 'undefined') {
+            var scriptObject = {};
+            var timerId = setTimeout(function tick() {
+                callProcess();
+                timerId = setTimeout(tick, 1000);
+            }, 1000);
+        }
+    }, 10000);
+</script>
+</body>
+</html>

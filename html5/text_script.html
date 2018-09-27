@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // каждые 6 минуты (4 интервала) проверяем, не закрыли ли основную вкладку, в которой выполняется обновление
+        setInterval(function check() {
+            // если еще вообще не запускали обновление счетчиков или запускали раньше чем 3 минуты (2 интервала)
+            if (localStorage.getItem('counters_last_updated') === null || (Date.now() - parseFloat(localStorage.getItem('counters_last_updated'))) > 10000) {
+                // запускаем процесс
+                console.log('START');
+                // и устанавливаем время запуска
+                localStorage.setItem('counters_last_updated', Date.now() + '');
+            }
+            console.log(localStorage.getItem('counters_last_updated'));
+        }, 20000);
+
+        // 5 сек
+    </script>
+</body>
+</html>
