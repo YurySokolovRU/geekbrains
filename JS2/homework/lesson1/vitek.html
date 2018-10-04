@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    ВИТЁК, Мощность: 5000<br>
+    Налить воды: <input type="number" id="water" oninput="vitek.fillWater(this.value);"><br>
+    Положить зёрен: <input type="number" id="beans" oninput="vitek.putBeans(this.value);"><br>
+    <br>
+    <button id="startBtn" onclick="vitek.launch();" disabled>Запустить</button>
+    <button id="stopBtn" onclick="vitek.interrupt();" disabled>Остановить</button>
+    <div id="display"></div>
+</body>
+<script>
+    /*
+        доработать кофеварку
+        ввести значение зерен
+        проверка на пустую кофеварку
+        реализовать кнопку стоп
+        время приготовления зависит от количества зерен
+     */
+    function CoffeeMachine(power) {
+        const waterHeatCapacity = 4200;
+        const maxTerm = 90;
+
+        let waterAmount = 0;
+        let beansAmount = 0;
+
+        this.fillWater = function(water) {
+            waterAmount = water;
+            checkMachine();
+            if (water < 50) {
+                console.error('Слишком мало воды');
+                display('Слишком мало воды');
+            }
+        };
+
+        this.putBeans = function(beans) {
+            beansAmount = beans;
+            checkMachine();
+            if (beans == 0) {
+                console.error('No beans - no coffee!');
+                display('No beans - no coffee!');
+            }
+        };
+
+        let checkMachine = function() {
+            const time = getBoilingTime();
+            if (time > 0) {
+                display(`Время ожидания: ${time}`);
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+            } else {
+                display('');
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = true;
+            }
+        };
+
+        const getBoilingTime = function() {
+            return waterAmount * waterHeatCapacity * maxTerm * beansAmount / power;
+        };
+
+        let timer = 0;
+
+        this.launch = function() {
+            const time = getBoilingTime();
+            display(`Варим кофе. Время ожидания: ${time}`);
+            changeState(true);
+            timer = setTimeout(function() {
+                display('Ваш кофе готов!');
+                changeState(false);
+            }, time);
+        };
+
+        this.interrupt = function() {
+            clearTimeout(timer);
+            timer = 0;
+            display('Жаль не дождались :_(');
+            changeState(false);
+        };
+
+        let changeState = function(start) {
+            document.getElementById('startBtn').disabled = start;
+            document.getElementById('water').disabled = start;
+            document.getElementById('beans').disabled = start;
+            document.getElementById('stopBtn').disabled = !start;
+        };
+
+        let display = function(text) {
+            document.getElementById('display').innerText = text;
+        }
+    }
+    const vitek = new CoffeeMachine(5000);
+</script>
+</html>
